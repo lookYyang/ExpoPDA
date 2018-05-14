@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">专业观众验票系统</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- common start -->
+    <string name="common_isLoading">请稍后...</string>
+    <!-- common end -->
+
+    <!-- login start -->
+    <string name="login_pwdIsNotNull">用户名/密码不能为空</string>
+    <string name="login_pwdIsShort">密码不能少于六位</string>
+    <!-- login end -->
+
+    <!-- activity start -->
+    <string name="activity_modules_name">专业观众验票系统</string>
+    <!-- activity end -->
+</resources>
