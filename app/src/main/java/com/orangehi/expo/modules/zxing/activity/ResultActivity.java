@@ -1,29 +1,37 @@
 package com.orangehi.expo.modules.zxing.activity;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.orangehi.expo.R;
-import com.orangehi.expo.modules.zxing.decode.DecodeThread;
+import com.orangehi.expo.common.OHCons;
+import com.orangehi.expo.common.xUtilsHttpsUtils;
+import com.orangehi.expo.common.xUtilsImageUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
+
 @ContentView(R.layout.activity_result)
 public class ResultActivity extends Activity {
 
-	@ViewInject(R.id.result_image)
-	private ImageView mResultImage;
+	@ViewInject(R.id.facial_photo)
+	private ImageView facialImage;
 
-	@ViewInject(R.id.result_text)
-	private TextView mResultText;
+	@ViewInject(R.id.textName)
+	private TextView textName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +48,32 @@ public class ResultActivity extends Activity {
 			lps.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
 			lps.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics());
 			lps.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics());
-			
-			mResultImage.setLayoutParams(lps);
+			facialImage.setLayoutParams(lps);
+			xUtilsImageUtils.display(facialImage,"http://p4.so.qhmsg.com/sdr/600_900_/t01f4e6c53f0e23d459.jpg");
 
-			String result = extras.getString("result");
-			mResultText.setText(result);
+			String ticket_code = extras.getString("result");
+
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("ticket_code", ticket_code);
+			xUtilsHttpsUtils.getInstance().get(OHCons.URL.GET_CARD_INFO_URL, params, new xUtilsHttpsUtils.XCallBack(){
+				@Override
+				public void onResponse(String result) {
+					Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
+					Type type = new TypeToken<Map<String, String>>() {}.getType();
+					Map<String, String> resultMap = gson.fromJson(result, type);
+					if(!resultMap.get("appmsg").isEmpty()){
+						if(OHCons.SYS_STATUS.SUCCESS.equals(resultMap.get("appcode"))){
+							if(!resultMap.get("data").isEmpty() ){
+								Map<String, String> data = gson.fromJson(resultMap.get("data"), type);
+								textName.setText(data.get("name"));
+							}
+						}else {
+							Log.w("警告：", resultMap.get("appmsg"));
+						}
+					}
+				}
+			});
+
 //			try {
 //				EncryptUtil encryptUtil = new EncryptUtil("orangehi", "utf-8");
 //				Log.i("ResultMsg", encryptUtil.decode(result));
@@ -52,15 +81,16 @@ public class ResultActivity extends Activity {
 //			}catch (Exception e){
 //
 //			}
-			Bitmap barcode = null;
-			byte[] compressedBitmap = extras.getByteArray(DecodeThread.BARCODE_BITMAP);
-			if (compressedBitmap != null) {
-				barcode = BitmapFactory.decodeByteArray(compressedBitmap, 0, compressedBitmap.length, null);
-				// Mutable copy:
-				barcode = barcode.copy(Bitmap.Config.RGB_565, true);
-			}
+//			Bitmap barcode = null;
+//			byte[] compressedBitmap = extras.getByteArray(DecodeThread.BARCODE_BITMAP);
+//			if (compressedBitmap != null) {
+//				barcode = BitmapFactory.decodeByteArray(compressedBitmap, 0, compressedBitmap.length, null);
+//				// Mutable copy:
+//				barcode = barcode.copy(Bitmap.Config.RGB_565, true);
+//			}
+//
+//			mResultImage.setImageBitmap(barcode);
 
-			mResultImage.setImageBitmap(barcode);
 		}
 	}
 }

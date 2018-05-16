@@ -15,6 +15,23 @@
     <string name="activity_modules_name">专业观众验票系统</string>
     <!-- activity end -->
 
+    <!-- result start -->
+    <string name="name">姓名</string>
+    <string name="nationality">国籍</string>
+    <string name="group_name">团组名称</string>
+    <string name="birth_date">出生日期</string>
+    <string name="gender">性别</string>
+    <string name="id_card_type">证件类型</string>
+    <string name="id_card_no">证件号</string>
+    <string name="mobile_phone">手机号</string>
+    <string name="email">邮箱</string>
+    <string name="company_name">公司名称</string>
+    <string name="company_location">公司地址</string>
+    <string name="department">公司地址</string>
+    <string name="duty">公司地址</string>
+
+    <!-- activity end -->
+
     <!-- permission start -->
     <string-array name="permissions">
         <item>@string/permission_recode_audio_hint</item>

@@ -57,6 +57,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        SharedPreferences userInfo = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        if(!userInfo.getString("account", "").isEmpty()){
+            Intent intent = new Intent(LoginActivity.this, OperationActivity.class);
+            startActivity(intent);
+            finish();
+        }
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,9 +79,10 @@ public class LoginActivity extends AppCompatActivity {
                     userInfoEditor.putString("account", account);
                     userInfoEditor.putString("password", password);
                     userInfoEditor.commit();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, OperationActivity.class);
                     startActivity(intent);
-                    mHandler.sendEmptyMessageDelayed(1, 0);
+                    finish();
+                    mHandler.sendEmptyMessageDelayed(1, 100);
 //                    login(account, password);
                 }
             }

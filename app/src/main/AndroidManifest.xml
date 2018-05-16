@@ -7,18 +7,21 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
+        android:name=".modules.MainActivity"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.orangehi.expo.modules.LoginActivity"
+            android:name=".modules.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,14 +30,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.orangehi.expo.modules.MainActivity"></activity>
+        <activity android:name=".modules.OperationActivity"></activity>
 
         <activity
-            android:name="com.orangehi.expo.modules.zxing.activity.CaptureActivity"
+            android:name=".modules.zxing.activity.CaptureActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity
-            android:name="com.orangehi.expo.modules.zxing.activity.ResultActivity"
+            android:name=".modules.zxing.activity.ResultActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
 

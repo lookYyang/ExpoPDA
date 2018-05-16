@@ -32,8 +32,16 @@ public class OHCons {
         public static final String FAILURE = "0";
     }
 
+    /**
+     * url前缀
+     */
+    public static final String PREFIX = "http://192.168.0.107:20888/platform/do.go?api=";
+
     // 访问url
     public static final class URL {
-        public static final String LOGIN_URL = "";
+        public static final String LOGIN_URL = PREFIX + "";
+        public static final String GET_CARD_INFO_URL = PREFIX + "sv.cardCheck.getCardInfo";
+        public static final String CHECK_TICKET_URL = PREFIX + "sv.cardCheck.checkTicket";
+        public static final String GET_CHECK_DETAIL_URL = PREFIX + "sv.cardCheck.getCheckDetail";
     }
 }
