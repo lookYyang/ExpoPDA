@@ -22,7 +22,7 @@ import org.xutils.x;
 import java.util.HashMap;
 import java.util.Map;
 
-@ContentView(R.layout.activity_result)
+@ContentView(R.layout.title_list)
 public class ResultActivity extends Activity {
 
 	@ViewInject(R.id.facial_photo)

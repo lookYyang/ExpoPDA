@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.orangehi.expo.R;
 import com.orangehi.expo.common.JsonUtils;
 import com.orangehi.expo.common.OHCons;
@@ -18,6 +19,7 @@ import com.orangehi.expo.common.PermissionUtils;
 import com.orangehi.expo.common.xUtilsHttpsUtils;
 import com.orangehi.expo.modules.zxing.activity.CaptureActivity;
 import com.orangehi.expo.po.ResultBean;
+import com.orangehi.expo.po.SvCardPO;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -66,16 +68,20 @@ public class OperationActivity extends AppCompatActivity {
                 xUtilsHttpsUtils.getInstance().get(OHCons.URL.GET_CARD_INFO_URL, params, new xUtilsHttpsUtils.XCallBack(){
                     @Override
                     public void onResponse(String result) {
-                        Log.d("返回值", result);
                         ResultBean resultBean = JsonUtils.fromJson(result, ResultBean.class);
-
                         if(!resultBean.getAppcode().isEmpty()){
                             if(OHCons.SYS_STATUS.SUCCESS.equals(resultBean.getAppcode())){
-                                if(!resultBean.getData().toString().isEmpty() ){
-                                    Log.d("用户姓名：", resultBean.getData().get(0).getName());
+                                if(resultBean.getData().size() > 0){
+                                    Gson gson = new Gson();
+                                    SvCardPO svCardPO = resultBean.getData().get(0);
+                                    String json = gson.toJson(resultBean.getData().get(0));
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("json", json);
+                                    Intent intent = new Intent(OperationActivity.this, ListViewActivity.class).putExtras(bundle);
+                                    startActivity(intent);
                                 }
                             }else {
-                                Log.w("警告：", resultBean.getAppmsg().toString());
+                                Log.w("警告：", resultBean.getAppmsg());
                             }
                         }
                     }

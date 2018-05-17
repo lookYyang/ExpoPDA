@@ -31,7 +31,7 @@
         </activity>
 
         <activity android:name=".modules.OperationActivity"></activity>
-
+        <activity android:name=".modules.ListViewActivity"></activity>
         <activity
             android:name=".modules.zxing.activity.CaptureActivity"
             android:screenOrientation="portrait"

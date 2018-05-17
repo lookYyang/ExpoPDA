@@ -585,6 +585,5 @@ public class SvCardPO {
 	public void setBusiness_card_photo(String business_card_photo) {
 		this.business_card_photo = business_card_photo;
 	}
-	
 
 }

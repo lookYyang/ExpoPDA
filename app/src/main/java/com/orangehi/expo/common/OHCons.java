@@ -45,7 +45,7 @@ public class OHCons {
     /**
      * url前缀
      */
-    public static final String PREFIX = "http://192.168.2.150:20888/platform/do.go?api=";
+    public static final String PREFIX = "http://192.168.0.107:20888/platform/do.go?api=";
 
     // 访问url
     public static final class URL {
