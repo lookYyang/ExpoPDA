@@ -8,19 +8,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.orangehi.expo.R;
+import com.orangehi.expo.common.JsonUtils;
 import com.orangehi.expo.common.OHCons;
 import com.orangehi.expo.common.xUtilsHttpsUtils;
 import com.orangehi.expo.common.xUtilsImageUtils;
+import com.orangehi.expo.po.ResultBean;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,17 +56,17 @@ public class ResultActivity extends Activity {
 			xUtilsHttpsUtils.getInstance().get(OHCons.URL.GET_CARD_INFO_URL, params, new xUtilsHttpsUtils.XCallBack(){
 				@Override
 				public void onResponse(String result) {
-					Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
-					Type type = new TypeToken<Map<String, String>>() {}.getType();
-					Map<String, String> resultMap = gson.fromJson(result, type);
-					if(!resultMap.get("appmsg").isEmpty()){
-						if(OHCons.SYS_STATUS.SUCCESS.equals(resultMap.get("appcode"))){
-							if(!resultMap.get("data").isEmpty() ){
-								Map<String, String> data = gson.fromJson(resultMap.get("data"), type);
-								textName.setText(data.get("name"));
+					Log.d("返回值", result);
+					ResultBean resultBean = JsonUtils.fromJson(result, ResultBean.class);
+
+					if(!resultBean.getAppcode().isEmpty()) {
+						if(OHCons.SYS_STATUS.SUCCESS.equals(resultBean.getAppcode())){
+							if(resultBean.getData().size() > 0){
+								textName.setText(resultBean.getData().get(0).getName());
+								Log.d("用户姓名：", resultBean.getData().get(0).getName());
 							}
 						}else {
-							Log.w("警告：", resultMap.get("appmsg"));
+							Log.w("警告：", resultBean.getAppmsg().toString());
 						}
 					}
 				}

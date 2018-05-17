@@ -17,6 +17,16 @@ public class OHCons {
     public static final String SYS_REGISTRY_ID = "SYS_SPECIAL_VISITOR";
 
     /**
+     * 日期格式
+     */
+    public static final String DATA = "yyyy-MM-dd";
+
+    /**
+     * 日期时间格式
+     */
+    public static final String DATATIME = "yyyy-MM-dd HH:mm:ss";
+
+    /**
      * 系统用户类型
      */
     public static final class UTYPE {
@@ -35,7 +45,7 @@ public class OHCons {
     /**
      * url前缀
      */
-    public static final String PREFIX = "http://192.168.0.107:20888/platform/do.go?api=";
+    public static final String PREFIX = "http://192.168.2.150:20888/platform/do.go?api=";
 
     // 访问url
     public static final class URL {

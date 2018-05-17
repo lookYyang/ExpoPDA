@@ -1,13 +1,16 @@
 package com.orangehi.expo.common;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Type;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by VULCAN on 2018/5/17.
@@ -15,55 +18,31 @@ import java.util.Map;
 
 public class JsonUtils {
 
-    public static Map json2Map(String json) {
-        LinkedMap map = new LinkedMap();
-        JSONObject js = JSONObject.fromObject(json);
-        populate(js, map);
-        return map;
+    private static Gson gson;
+
+    static {
+        GsonBuilder builder = new GsonBuilder();
+        // 注册日期时间类型反序列化时的适配器(针对反序列化到JavaBean的情况，Map类型不需要处理)
+        builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+            public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                    throws JsonParseException {
+                return stringToDate(json.getAsString());
+            }
+        });
+        gson = builder.create();
     }
 
-    /**
-     *<p>类描述：json中的键值对解析成map。</p>
-     */
-    private static Map populate(JSONObject jsonObject, Map map) {
-        for (Iterator iterator = jsonObject.entrySet().iterator(); iterator
-                .hasNext();) {
-            String entryStr = String.valueOf(iterator.next());
-            String key = entryStr.substring(0, entryStr.indexOf("="));
-            String value = entryStr.substring(entryStr.indexOf("=") + 1,
-                    entryStr.length());
-            if (jsonObject.get(key).getClass().equals(JSONObject.class)) {
-                HashMap _map = new HashMap();
-                map.put(key, _map);
-                populate(jsonObject.getJSONObject(key), ((Map) (_map)));
-            } else if (jsonObject.get(key).getClass().equals(JSONArray.class)) {
-                ArrayList list = new ArrayList();
-                map.put(key, list);
-                populateArray(jsonObject.getJSONArray(key), list);
-            } else {
-                map.put(key, jsonObject.get(key));
-            }
+    public static final <T> T fromJson(String json, Type type) {
+        T list = gson.fromJson(json, type);
+        return (T) list;
+    }
+
+    public static Date stringToDate(String strDate) {
+        Date tmpDate = (new SimpleDateFormat(OHCons.DATATIME)).parse(strDate, new ParsePosition(0));
+        if (tmpDate == null) {
+            tmpDate = (new SimpleDateFormat(OHCons.DATA)).parse(strDate, new ParsePosition(0));
         }
-
-        return map;
-    }
-
-    /**
-     *<p>类描述：如果是键对应数组,则返回一个list到上级的map里。</p>
-     */
-    private static void populateArray(JSONArray jsonArray, List list) {
-        for (int i = 0; i < jsonArray.size(); i++)
-            if (jsonArray.get(i).getClass().equals(JSONArray.class)) {
-                ArrayList _list = new ArrayList();
-                list.add(_list);
-                populateArray(jsonArray.getJSONArray(i), _list);
-            } else if (jsonArray.get(i).getClass().equals(JSONObject.class)) {
-                HashMap _map = new HashMap();
-                list.add(_map);
-                populate(jsonArray.getJSONObject(i), _map);
-            } else {
-                list.add(jsonArray.get(i));
-            }
+        return tmpDate;
     }
 
 }

@@ -11,20 +11,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.orangehi.expo.R;
+import com.orangehi.expo.common.JsonUtils;
 import com.orangehi.expo.common.OHCons;
 import com.orangehi.expo.common.PermissionUtils;
 import com.orangehi.expo.common.xUtilsHttpsUtils;
 import com.orangehi.expo.modules.zxing.activity.CaptureActivity;
+import com.orangehi.expo.po.ResultBean;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,26 +66,16 @@ public class OperationActivity extends AppCompatActivity {
                 xUtilsHttpsUtils.getInstance().get(OHCons.URL.GET_CARD_INFO_URL, params, new xUtilsHttpsUtils.XCallBack(){
                     @Override
                     public void onResponse(String result) {
-                        Log.d("返回值：", result);
-//                        Gson gson = new Gson();
-//                        JsonReader reader = new JsonReader(new StringReader(result));
-//                        reader.setLenient(true);
-//                        Map<Object, Object> entity = gson.fromJson(reader, new TypeToken<Map<Object, Object>>() {}.getType());
-//                        Log.d("转map：", entity.get("appcode").toString());
+                        Log.d("返回值", result);
+                        ResultBean resultBean = JsonUtils.fromJson(result, ResultBean.class);
 
-                        Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
-                        Type type = new TypeToken<Map<String, String>>() {}.getType();
-                        String resultJson = gson.toJson(result);
-                            Log.d("##resultJson：", resultJson);
-                            Map<String, String> resultMap = gson.fromJson(result, type);
-                            if(!resultMap.get("appcode").toString().isEmpty()){
-                            if(OHCons.SYS_STATUS.SUCCESS.equals(resultMap.get("appcode"))){
-                                if(!resultMap.get("data").toString().isEmpty() ){
-                                    Map<String, String> data = gson.fromJson(resultMap.get("data").toString(), type);
-                                    Log.d("用户姓名：", data.get("name"));
+                        if(!resultBean.getAppcode().isEmpty()){
+                            if(OHCons.SYS_STATUS.SUCCESS.equals(resultBean.getAppcode())){
+                                if(!resultBean.getData().toString().isEmpty() ){
+                                    Log.d("用户姓名：", resultBean.getData().get(0).getName());
                                 }
                             }else {
-                                Log.w("警告：", resultMap.get("appmsg").toString());
+                                Log.w("警告：", resultBean.getAppmsg().toString());
                             }
                         }
                     }

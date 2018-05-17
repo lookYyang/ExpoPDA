@@ -1,11 +1,13 @@
 package com.orangehi.expo.po;
 
+import java.util.List;
+
 /**
  * @author yang
  * @date 2018-05-14 02:03:10
  */
 
-public class LoginPo {
+public class ResultBean {
 
     private static final long serialVersionUID = 1L;
 
@@ -13,7 +15,7 @@ public class LoginPo {
 
     private String appmsg;
 
-    private String data;
+    private List<SvCardPO> data;
 
     public String getAppcode() {
         return appcode;
@@ -31,11 +33,11 @@ public class LoginPo {
         this.appmsg = appmsg;
     }
 
-    public String getData() {
+    public List<SvCardPO> getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(List<SvCardPO> data) {
         this.data = data;
     }
 }

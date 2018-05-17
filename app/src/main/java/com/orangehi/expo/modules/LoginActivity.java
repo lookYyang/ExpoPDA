@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 import com.orangehi.expo.R;
 import com.orangehi.expo.common.LoadingDialog;
 import com.orangehi.expo.common.OHCons;
-import com.orangehi.expo.po.LoginPo;
+import com.orangehi.expo.po.ResultBean;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -99,9 +99,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(String result) {
                 //成功
                 Gson gson = new Gson();
-                LoginPo loginPo = gson.fromJson(result, LoginPo.class);
-                Toast.makeText(LoginActivity.this,loginPo.getAppmsg(), Toast.LENGTH_SHORT).show();
-                if (loginPo.getAppcode().equals(OHCons.SYS_STATUS.SUCCESS)){
+                ResultBean resultBean = gson.fromJson(result, ResultBean.class);
+                Toast.makeText(LoginActivity.this,resultBean.getAppmsg().toString(), Toast.LENGTH_SHORT).show();
+                if (resultBean.getAppcode().equals(OHCons.SYS_STATUS.SUCCESS)){
                     SharedPreferences userInfo = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
                     Editor userInfoEditor = userInfo.edit();
                     userInfoEditor.putString("account", account);
