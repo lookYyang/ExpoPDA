@@ -1,0 +1,81 @@
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/text_host"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:gravity="right"
+            android:text="@string/hostIs"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_host"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="15dp"
+            android:layout_toRightOf="@+id/textView1"
+            android:hint="@string/pleHostIs"
+            android:textSize="14sp" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/text_port"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:gravity="right"
+            android:text="@string/portIs"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_port"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="15dp"
+            android:layout_toRightOf="@+id/text_port"
+            android:hint="@string/plePortIs"
+            android:textSize="14sp" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_saveSetParams"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape"
+        android:gravity="center"
+        android:text="@string/saveParams"
+        android:textColor="#ffffffff"
+        android:textSize="16sp" />
+</LinearLayout>

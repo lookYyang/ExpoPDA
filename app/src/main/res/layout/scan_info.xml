@@ -1,266 +1,295 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:scrollbars="vertical"
-    android:fadingEdge="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical"
+        android:fadingEdge="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="45dp"
+            android:background="@android:color/white"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+            <!-- 头像 -->
+            <ImageView
+                android:id="@+id/facial_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/darker_gray"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="20dp"/>
+            <!-- 姓名 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+            <TextView
+                android:id="@+id/textName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#D8D8D8"
+                android:gravity="left|top"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+            <!-- 国籍 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nationality"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+            <TextView
+                android:id="@+id/textNationality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#D8D8D8"
+                android:gravity="left|top"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+            <!-- 所属团组 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/group_name"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+            <TextView
+                android:id="@+id/textGroupName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#D8D8D8"
+                android:gravity="left|top"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+            <!-- 最后一次进入记录 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/check_time"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+            <TextView
+                android:id="@+id/textCheckTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#D8D8D8"
+                android:gravity="left|top"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+
+            <!-- 出生日期 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/birth_date"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+            <TextView
+                android:id="@+id/textBirthDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#D8D8D8"
+                android:gravity="left|top"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+            <!-- 性别 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gender"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+            <TextView
+                android:id="@+id/textGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#D8D8D8"
+                android:gravity="left|top"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+            <!-- 证件类型 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/id_card_type"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+            <TextView
+                android:id="@+id/textIdCardType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#D8D8D8"
+                android:gravity="left|top"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+            <!-- 证件号 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/id_card_no"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+            <TextView
+                android:id="@+id/textIdCardNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#D8D8D8"
+                android:gravity="left|top"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+            <!-- 手机号 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/mobile_phone"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+            <TextView
+                android:id="@+id/textMobilePhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#D8D8D8"
+                android:gravity="left|top"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+            <!-- 邮箱 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+            <TextView
+                android:id="@+id/textEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#D8D8D8"
+                android:gravity="left|top"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+            <!-- 公司名称 -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/company_name"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+            <TextView
+                android:id="@+id/textCompanyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#D8D8D8"
+                android:gravity="left|top"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+            <!-- 公司地址 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/company_location"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+            <TextView
+                android:id="@+id/textCompanyLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#D8D8D8"
+                android:gravity="left|top"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:gravity="center_horizontal"
-        android:orientation="vertical" >
-        <!-- 头像 -->
-        <ImageView
-            android:id="@+id/facial_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"
-            android:scaleType="fitCenter"
-            android:layout_marginTop="20dp"/>
-        <!-- 姓名 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:id="@+id/textName"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        >
+        <Button
+            android:id="@+id/btn_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#D8D8D8"
-            android:gravity="left|top"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-        <!-- 国籍 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/nationality"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:id="@+id/textNationality"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#D8D8D8"
-            android:gravity="left|top"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-        <!-- 所属团组 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/group_name"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:id="@+id/textGroupName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#D8D8D8"
-            android:gravity="left|top"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-        <!-- 最后一次进入记录 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/check_time"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:id="@+id/textCheckTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#D8D8D8"
-            android:gravity="left|top"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-
-        <!-- 出生日期 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/birth_date"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:id="@+id/textBirthDay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#D8D8D8"
-            android:gravity="left|top"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-        <!-- 性别 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/gender"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:id="@+id/textGender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#D8D8D8"
-            android:gravity="left|top"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-        <!-- 证件类型 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/id_card_type"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:id="@+id/textIdCardType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#D8D8D8"
-            android:gravity="left|top"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-        <!-- 证件号 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/id_card_no"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:id="@+id/textIdCardNo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#D8D8D8"
-            android:gravity="left|top"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-        <!-- 手机号 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/mobile_phone"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:id="@+id/textMobilePhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#D8D8D8"
-            android:gravity="left|top"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-        <!-- 邮箱 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/email"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:id="@+id/textEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#D8D8D8"
-            android:gravity="left|top"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-        <!-- 公司名称 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/company_name"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:id="@+id/textCompanyName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#D8D8D8"
-            android:gravity="left|top"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-        <!-- 公司地址 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/company_location"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:id="@+id/textCompanyLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="#D8D8D8"
-            android:gravity="left|top"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/shape"
+            android:gravity="center"
+            android:text="通过"
+            android:layout_gravity="bottom"
+            android:textColor="#ffffffff"
+            android:textSize="20sp" />
     </LinearLayout>
-</ScrollView>
+</RelativeLayout>

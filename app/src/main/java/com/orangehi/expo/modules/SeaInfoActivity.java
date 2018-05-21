@@ -16,6 +16,7 @@ import com.orangehi.expo.R;
 import com.orangehi.expo.common.JsonUtils;
 import com.orangehi.expo.common.LoadingDialog;
 import com.orangehi.expo.common.OHCons;
+import com.orangehi.expo.common.OHUtils;
 import com.orangehi.expo.common.xUtilsHttpsUtils;
 import com.orangehi.expo.common.xUtilsImageUtils;
 import com.orangehi.expo.po.ResultBean;
@@ -76,13 +77,13 @@ public class SeaInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
-        loadingDialog = LoadingDialog.showWaitDialog(SeaInfoActivity.this, getString(R.string.common_isLoading), false, false);
+        loadingDialog = LoadingDialog.showWaitDialog(SeaInfoActivity.this, getString(R.string.common_isLoading), false, true);
         Bundle extras = getIntent().getExtras();
         if (null != extras) {
             String search = extras.getString("search");
             Map<String, String> params = new HashMap<>();
             params.put("search", search);
-            xUtilsHttpsUtils.getInstance().get(OHCons.URL.GET_CARD_INFO_URL, params, new xUtilsHttpsUtils.XCallBack() {
+            xUtilsHttpsUtils.getInstance().get(OHUtils.getPrefix(getApplicationContext()) + OHCons.URL.GET_CARD_INFO_URL, params, new xUtilsHttpsUtils.XCallBack() {
                 @Override
                 public void onResponse(String result) {
                     ResultBean resultBean = JsonUtils.fromJson(result, ResultBean.class);

@@ -67,7 +67,8 @@ public class OperationActivity extends AppCompatActivity {
         btn_setParam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(OperationActivity.this, SetParamsActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -76,6 +77,7 @@ public class OperationActivity extends AppCompatActivity {
          *  @setView 装入一个EditView
          */
         final EditText editText = new EditText(OperationActivity.this);
+        editText.setHint("门票编号/身份证件号/手机号/邮箱");
         AlertDialog.Builder inputDialog =
                 new AlertDialog.Builder(OperationActivity.this);
         inputDialog.setTitle("请输入").setView(editText);

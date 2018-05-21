@@ -49,6 +49,10 @@
             android:name=".modules.SeaInfoActivity"
             android:launchMode="singleTop"/>
 
+        <activity
+            android:name=".modules.SetParamsActivity"
+            android:launchMode="singleTop"/>
+
     </application>
 
 </manifest>

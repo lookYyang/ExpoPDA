@@ -30,8 +30,19 @@
     <string name="company_location">公司地址</string>
     <string name="department">公司地址</string>
     <string name="duty">公司地址</string>
-
     <!-- activity end -->
+
+    <!-- setParams start -->
+    <string name="hostIs">服务器地址：</string>
+    <string name="pleHostIs">请输入服务器地址</string>
+    <string name="portIs">服务器端口号：</string>
+    <string name="plePortIs">请输入服务器端口号</string>
+    <string name="hostIsNotNull">服务器地址不能为空</string>
+    <string name="portIsNotNull">服务器端口号不能为空</string>
+    <string name="connectTimeOut">服务器连接超时</string>
+    <string name="saveParams">保存设置</string>
+    <string name="saveSuccess">保存成功</string>
+    <!-- setParams end -->
 
     <!-- permission start -->
     <string-array name="permissions">

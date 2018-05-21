@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import com.orangehi.expo.R;
 import com.orangehi.expo.common.JsonUtils;
 import com.orangehi.expo.common.LoadingDialog;
 import com.orangehi.expo.common.OHCons;
+import com.orangehi.expo.common.OHUtils;
 import com.orangehi.expo.common.xUtilsHttpsUtils;
 import com.orangehi.expo.common.xUtilsImageUtils;
 import com.orangehi.expo.po.ResultBean;
@@ -70,7 +73,13 @@ public class ResultActivity extends Activity {
 	@ViewInject(R.id.textCompanyLocation)
 	private TextView textCompanyLocation;
 
+	@ViewInject(R.id.btn_pass)
+	private Button btn_pass;
+
 	private Dialog loadingDialog;
+
+	// 扫面用户id
+	private static String scan_user_id;
 
 	private Handler mHandler = new Handler() {
 		@Override
@@ -88,7 +97,6 @@ public class ResultActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		x.view().inject(this);
-		loadingDialog = LoadingDialog.showWaitDialog(ResultActivity.this, getString(R.string.common_isLoading), false, false);
 		Bundle extras = getIntent().getExtras();
 		if (null != extras) {
 			int width = extras.getInt("width");
@@ -105,18 +113,21 @@ public class ResultActivity extends Activity {
 				Toast.makeText(getApplicationContext(),"二维码有误，请核查！", Toast.LENGTH_LONG).show();
 				finish();
 			}else {
+				loadingDialog = LoadingDialog.showWaitDialog(ResultActivity.this, getString(R.string.common_isLoading), false, true);
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("ticket_code", ticket_code);
-				xUtilsHttpsUtils.getInstance().get(OHCons.URL.GET_CARD_INFO_URL_TC, params, new xUtilsHttpsUtils.XCallBack(){
+				params.put("connectTimeout", "5000");
+				xUtilsHttpsUtils.getInstance().get(OHUtils.getPrefix(getApplicationContext()) + OHCons.URL.GET_CARD_INFO_URL_TC, params, new xUtilsHttpsUtils.XCallBack(){
 					@Override
 					public void onResponse(String result) {
 						ResultBean resultBean = JsonUtils.fromJson(result, ResultBean.class);
-
 						if(!resultBean.getAppcode().isEmpty()) {
 							if(OHCons.SYS_STATUS.SUCCESS.equals(resultBean.getAppcode())){
 								if(resultBean.getData().size() > 0){
 									SvCardPO svCardPO = resultBean.getData().get(0);
 									xUtilsImageUtils.display(facialImage, OHCons.IMAGE_PREFIX + svCardPO.getFacial_photo_path());
+									scan_user_id = svCardPO.getCard_id();
+
 									textName.setText(svCardPO.getName());
 
 									textGender.setText(svCardPO.getGender());
@@ -150,23 +161,37 @@ public class ResultActivity extends Activity {
 					}
 				});
 			}
-//			try {
-//				EncryptUtil encryptUtil = new EncryptUtil("orangehi", "utf-8");
-//				Log.i("ResultMsg", encryptUtil.decode(result));
-//				mResultText.setText(encryptUtil.decode(result));
-//			}catch (Exception e){
-//
-//			}
-//			Bitmap barcode = null;
-//			byte[] compressedBitmap = extras.getByteArray(DecodeThread.BARCODE_BITMAP);
-//			if (compressedBitmap != null) {
-//				barcode = BitmapFactory.decodeByteArray(compressedBitmap, 0, compressedBitmap.length, null);
-//				// Mutable copy:
-//				barcode = barcode.copy(Bitmap.Config.RGB_565, true);
-//			}
-//
-//			mResultImage.setImageBitmap(barcode);
 
+			btn_pass.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					if(scan_user_id.isEmpty()){
+						Toast.makeText(getApplicationContext(),"用户信息无效", Toast.LENGTH_LONG).show();
+						finish();
+					}else {
+						loadingDialog = LoadingDialog.showWaitDialog(ResultActivity.this, getString(R.string.common_isLoading), false, true);
+						Map<String, String> params = new HashMap<String, String>();
+						params.put("card_id", scan_user_id);
+						params.put("check_user_id", "1");
+						xUtilsHttpsUtils.getInstance().get(OHUtils.getPrefix(getApplicationContext()) + OHCons.URL.CHECK_TICKET_URL, params, new xUtilsHttpsUtils.XCallBack(){
+							@Override
+							public void onResponse(String result) {
+								ResultBean resultBean = JsonUtils.fromJson(result, ResultBean.class);
+								if(!resultBean.getAppcode().isEmpty()) {
+									if(OHCons.SYS_STATUS.SUCCESS.equals(resultBean.getAppcode())){
+										mHandler.sendEmptyMessageDelayed(1, 100);
+										Toast.makeText(getApplicationContext(),resultBean.getAppmsg(), Toast.LENGTH_LONG).show();
+										finish();
+									}
+								}else {
+									mHandler.sendEmptyMessageDelayed(1, 100);
+									Toast.makeText(getApplicationContext(),"通过失败，服务器请求异常", Toast.LENGTH_LONG).show();
+								}
+							}
+						});
+					}
+				}
+			});
 		}
 	}
 }
