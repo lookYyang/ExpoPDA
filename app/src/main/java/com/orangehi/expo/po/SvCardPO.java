@@ -18,7 +18,38 @@ public class SvCardPO {
 	 * 姓名
 	 */
 	private String name;
-	
+
+	private String check_time;
+
+	public String getCheck_time() {
+		return check_time;
+	}
+
+	public void setCheck_time(String check_time) {
+		this.check_time = check_time;
+	}
+
+	/**
+	 * 团组
+	 */
+	private String group_name;
+
+	public String getGroup_name() {
+		return group_name;
+	}
+
+	public void setGroup_name(String group_name) {
+		this.group_name = group_name;
+	}
+
+	public String getFacial_photo_path() {
+		return facial_photo_path;
+	}
+
+	public void setFacial_photo_path(String facial_photo_path) {
+		this.facial_photo_path = facial_photo_path;
+	}
+
 	/**
 	 * 国籍
 	 */
@@ -122,17 +153,7 @@ public class SvCardPO {
 	/**
 	 * 头像照片
 	 */
-	private String facial_photo;
-	
-	/**
-	 * 证件照片
-	 */
-	private String id_photo;
-	
-	/**
-	 * 名片照片
-	 */
-	private String business_card_photo;
+	private String facial_photo_path;
 	
 
 	/**
@@ -332,34 +353,6 @@ public class SvCardPO {
 	public String getDuty() {
 		return duty;
 	}
-	
-	/**
-	 * 头像照片
-	 * 
-	 * @return facial_photo
-	 */
-	public String getFacial_photo() {
-		return facial_photo;
-	}
-	
-	/**
-	 * 证件照片
-	 * 
-	 * @return id_photo
-	 */
-	public String getId_photo() {
-		return id_photo;
-	}
-	
-	/**
-	 * 名片照片
-	 * 
-	 * @return business_card_photo
-	 */
-	public String getBusiness_card_photo() {
-		return business_card_photo;
-	}
-	
 
 	/**
 	 * ID
@@ -558,32 +551,4 @@ public class SvCardPO {
 	public void setDuty(String duty) {
 		this.duty = duty;
 	}
-	
-	/**
-	 * 头像照片
-	 * 
-	 * @param facial_photo
-	 */
-	public void setFacial_photo(String facial_photo) {
-		this.facial_photo = facial_photo;
-	}
-	
-	/**
-	 * 证件照片
-	 * 
-	 * @param id_photo
-	 */
-	public void setId_photo(String id_photo) {
-		this.id_photo = id_photo;
-	}
-	
-	/**
-	 * 名片照片
-	 * 
-	 * @param business_card_photo
-	 */
-	public void setBusiness_card_photo(String business_card_photo) {
-		this.business_card_photo = business_card_photo;
-	}
-
 }

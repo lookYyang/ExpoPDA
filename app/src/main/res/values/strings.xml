@@ -20,6 +20,7 @@
     <string name="nationality">国籍</string>
     <string name="group_name">团组名称</string>
     <string name="birth_date">出生日期</string>
+    <string name="check_time">最后入场时间</string>
     <string name="gender">性别</string>
     <string name="id_card_type">证件类型</string>
     <string name="id_card_no">证件号</string>

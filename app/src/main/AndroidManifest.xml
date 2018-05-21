@@ -30,16 +30,24 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".modules.OperationActivity"></activity>
-        <activity android:name=".modules.ListViewActivity"></activity>
+        <activity
+            android:name=".modules.OperationActivity"/>
+
         <activity
             android:name=".modules.zxing.activity.CaptureActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
+
         <activity
             android:name=".modules.zxing.activity.ResultActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
+
+        <activity
+            android:name=".modules.SeaInfoActivity"
+            android:launchMode="singleTop"/>
 
     </application>
 

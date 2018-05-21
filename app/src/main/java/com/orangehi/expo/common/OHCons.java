@@ -43,6 +43,11 @@ public class OHCons {
     }
 
     /**
+     * image前缀
+     */
+    public static final String IMAGE_PREFIX = "http://192.168.0.107:20888";
+
+    /**
      * url前缀
      */
     public static final String PREFIX = "http://192.168.0.107:20888/platform/do.go?api=";
@@ -51,7 +56,9 @@ public class OHCons {
     public static final class URL {
         public static final String LOGIN_URL = PREFIX + "";
         public static final String GET_CARD_INFO_URL = PREFIX + "sv.cardCheck.getCardInfo";
+        public static final String GET_CARD_INFO_URL_TC = PREFIX + "sv.cardCheck.getCardInfoByTC";
         public static final String CHECK_TICKET_URL = PREFIX + "sv.cardCheck.checkTicket";
         public static final String GET_CHECK_DETAIL_URL = PREFIX + "sv.cardCheck.getCheckDetail";
+
     }
 }

@@ -66,4 +66,5 @@ public class LoadingDialog {
             mDialogUtils.dismiss();
         }
     }
+
 }

@@ -1,6 +1,8 @@
 package com.orangehi.expo.modules;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -9,22 +11,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.orangehi.expo.R;
-import com.orangehi.expo.common.JsonUtils;
-import com.orangehi.expo.common.OHCons;
 import com.orangehi.expo.common.PermissionUtils;
-import com.orangehi.expo.common.xUtilsHttpsUtils;
 import com.orangehi.expo.modules.zxing.activity.CaptureActivity;
-import com.orangehi.expo.po.ResultBean;
-import com.orangehi.expo.po.SvCardPO;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,8 +40,10 @@ public class OperationActivity extends AppCompatActivity {
 
     private static final String TAG = OperationActivity.class.getSimpleName();
 
+    private EditText alertEdit;
+
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         btn_scanCard.setOnClickListener(new View.OnClickListener() {
@@ -61,31 +61,7 @@ public class OperationActivity extends AppCompatActivity {
         btn_searchInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String ticket_code = "12345678";
-
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("ticket_code", ticket_code);
-                xUtilsHttpsUtils.getInstance().get(OHCons.URL.GET_CARD_INFO_URL, params, new xUtilsHttpsUtils.XCallBack(){
-                    @Override
-                    public void onResponse(String result) {
-                        ResultBean resultBean = JsonUtils.fromJson(result, ResultBean.class);
-                        if(!resultBean.getAppcode().isEmpty()){
-                            if(OHCons.SYS_STATUS.SUCCESS.equals(resultBean.getAppcode())){
-                                if(resultBean.getData().size() > 0){
-                                    Gson gson = new Gson();
-                                    SvCardPO svCardPO = resultBean.getData().get(0);
-                                    String json = gson.toJson(resultBean.getData().get(0));
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("json", json);
-                                    Intent intent = new Intent(OperationActivity.this, ListViewActivity.class).putExtras(bundle);
-                                    startActivity(intent);
-                                }
-                            }else {
-                                Log.w("警告：", resultBean.getAppmsg());
-                            }
-                        }
-                    }
-                });
+                showInputDialog();
             }
         });
         btn_setParam.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +71,61 @@ public class OperationActivity extends AppCompatActivity {
             }
         });
     }
+    private void showInputDialog() {
+        /*
+         *  @setView 装入一个EditView
+         */
+        final EditText editText = new EditText(OperationActivity.this);
+        AlertDialog.Builder inputDialog =
+                new AlertDialog.Builder(OperationActivity.this);
+        inputDialog.setTitle("请输入").setView(editText);
+        inputDialog.setPositiveButton("查询",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialog, int which) {
+                        try {
+                            if(editText.getText().toString().isEmpty()){
+                                Toast.makeText(OperationActivity.this, "查询内容不能为空", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Map<String, String> params = new HashMap<String, String>();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("search", editText.getText().toString());
+                                Intent intent = new Intent(OperationActivity.this, SeaInfoActivity.class).putExtras(bundle);
+                                startActivity(intent);
+                                try {
+                                    Field field = dialog.getClass().getSuperclass().getDeclaredField("mShowing");
+                                    field.setAccessible(true);
+                                    // 将mShowing变量设为false，表示对话框已关闭
+                                    field.set(dialog, true);
+                                    dialog.dismiss();
+                                } catch (NoSuchFieldException e) {
+                                    e.printStackTrace();
+                                } catch (IllegalAccessException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } catch (Exception e) {
 
+                        }
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            Field field = dialog.getClass().getSuperclass().getDeclaredField("mShowing");
+                            field.setAccessible(true);
+                            // 将mShowing变量设为false，表示对话框已关闭
+                            field.set(dialog, true);
+                            dialog.dismiss();
+                        } catch (NoSuchFieldException e) {
+                            e.printStackTrace();
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).show();
+    }
     private PermissionUtils.PermissionGrant mPermissionGrant = new PermissionUtils.PermissionGrant() {
         @Override
         public void onPermissionGranted(int requestCode) {
