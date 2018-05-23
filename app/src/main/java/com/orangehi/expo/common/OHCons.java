@@ -55,12 +55,11 @@ public class OHCons {
 
     // 访问url
     public static final class URL {
-        public static final String LOGIN_URL = "";
+        public static final String LOGIN_URL = "sv.cardCheck.getLoginInfo";
         public static final String TEST_CONN = "sv.cardCheck.testConnect";
         public static final String GET_CARD_INFO_URL = "sv.cardCheck.getCardInfo";
         public static final String GET_CARD_INFO_URL_TC = "sv.cardCheck.getCardInfoByTC";
         public static final String CHECK_TICKET_URL = "sv.cardCheck.checkTicket";
         public static final String GET_CHECK_DETAIL_URL = "sv.cardCheck.getCheckDetail";
-
     }
 }

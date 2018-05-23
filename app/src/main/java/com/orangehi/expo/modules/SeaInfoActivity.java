@@ -95,8 +95,8 @@ public class SeaInfoActivity extends AppCompatActivity {
                                 String json = gson.toJson(resultBean.getData().get(0));
                                 Map<String, String> resultMap = gson.fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
                                 xUtilsImageUtils.display(facialImage, OHCons.IMAGE_PREFIX + resultMap.get("facial_photo_path"));
-                                textName.setText(resultMap.get("name"));
-                                textGender.setText(resultMap.get("gender"));
+                                textName.setText(svCardPO.getName());
+                                textGender.setText(svCardPO.getGender());
                                 textGroupName.setText(resultMap.get("group_name"));
                                 textIdCardNo.setText(resultMap.get("id_card_no"));
                                 textIdCardType.setText(resultMap.get("id_card_type"));

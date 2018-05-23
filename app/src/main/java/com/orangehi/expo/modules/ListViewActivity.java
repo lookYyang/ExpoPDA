@@ -20,7 +20,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class ListViewActivity extends ListActivity {
+public class ListViewActivity extends ListActivity  {
 
     ListView mListView = null;
 

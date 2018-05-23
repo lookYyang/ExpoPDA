@@ -18,13 +18,17 @@ import com.google.gson.Gson;
 import com.orangehi.expo.R;
 import com.orangehi.expo.common.LoadingDialog;
 import com.orangehi.expo.common.OHCons;
-import com.orangehi.expo.po.ResultBean;
+import com.orangehi.expo.common.OHUtils;
+import com.orangehi.expo.common.xUtilsHttpsUtils;
+import com.orangehi.expo.po.AosUserPO;
+import com.orangehi.expo.po.LoginBean;
 
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @ContentView(R.layout.login)
 public class LoginActivity extends AppCompatActivity {
@@ -39,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edit_password;
 
     private Dialog loadingDialog;
-    private String user_id = "";
 
     private Handler mHandler = new Handler() {
         @Override
@@ -57,11 +60,16 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
-        SharedPreferences userInfo = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        if(!userInfo.getString("account", "").isEmpty()){
+        if(isLogin()){
             Intent intent = new Intent(LoginActivity.this, OperationActivity.class);
             startActivity(intent);
             finish();
+        }else {
+            SharedPreferences settings = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+            SharedPreferences.Editor settingsEditor = settings.edit();
+            settingsEditor.putString("host", "192.168.2.150");
+            settingsEditor.putString("port", "20888");
+            settingsEditor.commit();
         }
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,67 +81,62 @@ public class LoginActivity extends AppCompatActivity {
                 }else if (password.length() < 6) {
                     Toast.makeText(LoginActivity.this, R.string.login_pwdIsShort, Toast.LENGTH_SHORT).show();
                 }else {
-                    loadingDialog = LoadingDialog.showWaitDialog(LoginActivity.this, getString(R.string.common_isLoading), false, false);
-                    SharedPreferences userInfo = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-                    Editor userInfoEditor = userInfo.edit();
-                    userInfoEditor.putString("account", account);
-                    userInfoEditor.putString("password", password);
-                    userInfoEditor.commit();
-                    Intent intent = new Intent(LoginActivity.this, OperationActivity.class);
-                    startActivity(intent);
-                    finish();
-                    mHandler.sendEmptyMessageDelayed(1, 100);
-//                    login(account, password);
+                    login(account, password);
                 }
             }
         });
 
     }
 
-    private void login(final String account,final String password){
-        RequestParams params = new RequestParams(OHCons.URL.LOGIN_URL);
-        params.addQueryStringParameter("account",account);
-        params.addQueryStringParameter("password",password);
-        x.http().get(params, new Callback.CacheCallback<String>() {
+    private void login(final String account, final String password){
+        Map<String, String> params = new HashMap<>();
+        params.put("account", account);
+        params.put("password", password);
+        loadingDialog = LoadingDialog.showWaitDialog(LoginActivity.this, getString(R.string.common_isLoading), false, true);
+        xUtilsHttpsUtils.getInstance().post(OHUtils.getPrefix(getApplicationContext()) + OHCons.URL.LOGIN_URL, params, new xUtilsHttpsUtils.XCallBack() {
             @Override
-            public void onSuccess(String result) {
-                //成功
+            public void onResponse(String result) {
                 Gson gson = new Gson();
-                ResultBean resultBean = gson.fromJson(result, ResultBean.class);
-                Toast.makeText(LoginActivity.this,resultBean.getAppmsg().toString(), Toast.LENGTH_SHORT).show();
-                if (resultBean.getAppcode().equals(OHCons.SYS_STATUS.SUCCESS)){
-                    SharedPreferences userInfo = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-                    Editor userInfoEditor = userInfo.edit();
-                    userInfoEditor.putString("account", account);
-                    userInfoEditor.putString("password", password);
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
+                LoginBean loginBean = gson.fromJson(result, LoginBean.class);
+                    if (loginBean.getAppcode().equals(OHCons.SYS_STATUS.SUCCESS)){
+                        if (loginBean.getData().size() > 0) {
+                            AosUserPO userPO = loginBean.getData().get(0);
+                            SharedPreferences userInfo = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+                            Editor userInfoEditor = userInfo.edit();
+                            userInfoEditor.putInt("id", userPO.getId());
+                            userInfoEditor.putString("name", userPO.getName());
+                            userInfoEditor.putString("sex", userPO.getSex());
+                            userInfoEditor.putInt("org_id", userPO.getOrg_id());
+                            userInfoEditor.putString("email", userPO.getEmail());
+                            userInfoEditor.putString("mobile", userPO.getMobile());
+                            userInfoEditor.putString("idno", userPO.getIdno());
+                            userInfoEditor.putString("account", account);
+                            userInfoEditor.putString("password", password);
+                            userInfoEditor.commit();
+                            mHandler.sendEmptyMessageDelayed(1, 0);
+                            Toast.makeText(LoginActivity.this,"登录成功", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, OperationActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            mHandler.sendEmptyMessageDelayed(1, 0);
+                            Toast.makeText(LoginActivity.this,"服务器返回信息异常，请联系管理员", Toast.LENGTH_SHORT).show();
+                        }
+                }else {
                     mHandler.sendEmptyMessageDelayed(1, 0);
+                    Toast.makeText(LoginActivity.this,loginBean.getAppmsg().toString(), Toast.LENGTH_SHORT).show();
                 }
-            }
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(LoginActivity.this, "未知错误", Toast.LENGTH_SHORT).show();
-                mHandler.sendEmptyMessageDelayed(1, 0);
-            }
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-            @Override
-            public void onFinished() {
-
-            }
-            @Override
-            public boolean onCache(String result) {
-                return false;
             }
         });
     }
 
     private boolean isLogin(){
         SharedPreferences share = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        user_id = share.getString("user_id", "");
-        return true;
+        int user_id = share.getInt("id",0);
+        if(user_id == 0){
+            return false;
+        }else {
+            return true;
+        }
     }
 }
