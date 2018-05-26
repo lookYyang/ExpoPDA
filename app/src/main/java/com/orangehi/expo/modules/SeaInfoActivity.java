@@ -17,8 +17,8 @@ import com.orangehi.expo.common.JsonUtils;
 import com.orangehi.expo.common.LoadingDialog;
 import com.orangehi.expo.common.OHCons;
 import com.orangehi.expo.common.OHUtils;
-import com.orangehi.expo.common.xUtilsHttpsUtils;
-import com.orangehi.expo.common.xUtilsImageUtils;
+import com.orangehi.expo.Utils.xUtilsHttpsUtils;
+import com.orangehi.expo.Utils.xUtilsImageUtils;
 import com.orangehi.expo.po.ResultBean;
 import com.orangehi.expo.po.SvCardPO;
 

@@ -2,6 +2,8 @@ package com.orangehi.expo.modules.zxing.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,12 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.orangehi.expo.R;
+import com.orangehi.expo.Utils.xUtilsHttpsUtils;
+import com.orangehi.expo.Utils.xUtilsImageUtils;
 import com.orangehi.expo.common.JsonUtils;
 import com.orangehi.expo.common.LoadingDialog;
 import com.orangehi.expo.common.OHCons;
 import com.orangehi.expo.common.OHUtils;
-import com.orangehi.expo.common.xUtilsHttpsUtils;
-import com.orangehi.expo.common.xUtilsImageUtils;
 import com.orangehi.expo.po.ResultBean;
 import com.orangehi.expo.po.SvCardPO;
 
@@ -170,9 +172,11 @@ public class ResultActivity extends Activity {
 						finish();
 					}else {
 						loadingDialog = LoadingDialog.showWaitDialog(ResultActivity.this, getString(R.string.common_isLoading), false, true);
+
 						Map<String, String> params = new HashMap<String, String>();
 						params.put("card_id", scan_user_id);
-						params.put("check_user_id", "1");
+						SharedPreferences userInfo = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+						params.put("check_user_id", String.valueOf(userInfo.getInt("id", 1)));
 						xUtilsHttpsUtils.getInstance().get(OHUtils.getPrefix(getApplicationContext()) + OHCons.URL.CHECK_TICKET_URL, params, new xUtilsHttpsUtils.XCallBack(){
 							@Override
 							public void onResponse(String result) {

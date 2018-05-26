@@ -16,7 +16,7 @@ import com.orangehi.expo.R;
 import com.orangehi.expo.common.JsonUtils;
 import com.orangehi.expo.common.LoadingDialog;
 import com.orangehi.expo.common.OHCons;
-import com.orangehi.expo.common.xUtilsHttpsUtils;
+import com.orangehi.expo.Utils.xUtilsHttpsUtils;
 import com.orangehi.expo.po.ResultBean;
 
 import org.xutils.view.annotation.ContentView;

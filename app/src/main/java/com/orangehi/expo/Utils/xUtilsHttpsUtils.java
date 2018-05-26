@@ -1,4 +1,4 @@
-package com.orangehi.expo.common;
+package com.orangehi.expo.Utils;
 
 import android.os.Handler;
 import android.os.Looper;

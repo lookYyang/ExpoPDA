@@ -15,7 +15,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.orangehi.expo.R;
-import com.orangehi.expo.common.PermissionUtils;
+import com.orangehi.expo.Utils.PermissionUtils;
+import com.orangehi.expo.Utils.TopBar;
 import com.orangehi.expo.modules.zxing.activity.CaptureActivity;
 
 import org.xutils.view.annotation.ContentView;
@@ -26,7 +27,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-@ContentView(R.layout.activity_main)
+@ContentView(R.layout.operation_main)
 public class OperationActivity extends AppCompatActivity {
 
     @ViewInject(R.id.btn_scanCard)
@@ -38,6 +39,9 @@ public class OperationActivity extends AppCompatActivity {
     @ViewInject(R.id.btn_setParam)
     private Button btn_setParam;
 
+    @ViewInject(R.id.operation_bar)
+    private TopBar topBar;
+
     private static final String TAG = OperationActivity.class.getSimpleName();
 
     private EditText alertEdit;
@@ -46,6 +50,20 @@ public class OperationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+
+        topBar.setOnTitleClickListener(new TopBar.TitleOnClickListener() {
+           @Override
+           public void onLeftClick() {
+               Toast.makeText(OperationActivity.this, "点击了左侧", Toast.LENGTH_SHORT).show();
+           }
+
+           @Override
+           public void onRightClick() {
+               Intent intent = new Intent(OperationActivity.this, UserInfoActivity.class);
+               startActivity(intent);
+           }
+       });
+
         btn_scanCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

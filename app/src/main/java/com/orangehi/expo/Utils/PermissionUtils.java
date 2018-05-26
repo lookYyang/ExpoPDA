@@ -1,4 +1,4 @@
-package com.orangehi.expo.common;
+package com.orangehi.expo.Utils;
 
 import android.Manifest;
 import android.app.Activity;

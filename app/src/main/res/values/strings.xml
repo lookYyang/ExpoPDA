@@ -12,11 +12,15 @@
     <!-- login end -->
 
     <!-- activity start -->
-    <string name="activity_modules_name">专业观众验票系统</string>
+
     <!-- activity end -->
 
     <!-- result start -->
+    <string name="ResultActivity_name">扫面信息</string>
+    <string name="SeaInfoActivity_name">查询信息</string>
     <string name="name">姓名</string>
+    <string name="account">帐号</string>
+    <string name="org_name">所属机构</string>
     <string name="nationality">国籍</string>
     <string name="group_name">团组名称</string>
     <string name="birth_date">出生日期</string>
@@ -33,6 +37,7 @@
     <!-- activity end -->
 
     <!-- setParams start -->
+    <string name="setParams_name">系统设置</string>
     <string name="hostIs">服务器地址：</string>
     <string name="pleHostIs">请输入服务器地址</string>
     <string name="portIs">服务器端口号：</string>
@@ -43,6 +48,8 @@
     <string name="saveParams">保存设置</string>
     <string name="saveSuccess">保存成功</string>
     <!-- setParams end -->
+
+    <string name="userInfo_name">用户信息</string>
 
     <!-- permission start -->
     <string-array name="permissions">

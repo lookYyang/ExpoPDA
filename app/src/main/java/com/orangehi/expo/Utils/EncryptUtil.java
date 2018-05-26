@@ -1,4 +1,4 @@
-package com.orangehi.expo.common;
+package com.orangehi.expo.Utils;
 
 import java.security.Key;
 import java.security.spec.AlgorithmParameterSpec;

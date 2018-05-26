@@ -15,14 +15,13 @@
 
     <application
         android:name=".modules.MainActivity"
+        android:label="@string/app_name"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".modules.LoginActivity"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +30,9 @@
         </activity>
 
         <activity
-            android:name=".modules.OperationActivity"/>
+            android:name=".modules.OperationActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".modules.zxing.activity.CaptureActivity"
@@ -40,18 +41,29 @@
             android:theme="@android:style/Theme.Black.NoTitleBar" />
 
         <activity
+            android:label="@string/ResultActivity_name"
             android:name=".modules.zxing.activity.ResultActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            />
 
         <activity
             android:name=".modules.SeaInfoActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:label="@string/SeaInfoActivity_name"/>
 
         <activity
             android:name=".modules.SetParamsActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:label="@string/setParams_name"
+            />
+
+        <activity
+            android:name=".modules.UserInfoActivity"
+            android:launchMode="singleTop"
+            android:label="@string/userInfo_name"
+            />
 
     </application>
 

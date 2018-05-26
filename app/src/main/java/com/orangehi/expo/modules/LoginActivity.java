@@ -19,7 +19,7 @@ import com.orangehi.expo.R;
 import com.orangehi.expo.common.LoadingDialog;
 import com.orangehi.expo.common.OHCons;
 import com.orangehi.expo.common.OHUtils;
-import com.orangehi.expo.common.xUtilsHttpsUtils;
+import com.orangehi.expo.Utils.xUtilsHttpsUtils;
 import com.orangehi.expo.po.AosUserPO;
 import com.orangehi.expo.po.LoginBean;
 
@@ -107,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                             userInfoEditor.putString("name", userPO.getName());
                             userInfoEditor.putString("sex", userPO.getSex());
                             userInfoEditor.putInt("org_id", userPO.getOrg_id());
+                            userInfoEditor.putString("org_name", userPO.getOrg_name());
                             userInfoEditor.putString("email", userPO.getEmail());
                             userInfoEditor.putString("mobile", userPO.getMobile());
                             userInfoEditor.putString("idno", userPO.getIdno());
